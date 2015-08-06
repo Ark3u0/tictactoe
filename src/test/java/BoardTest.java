@@ -42,12 +42,6 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenSpaceIsOccupied() {
-        board.updateBoard(new Pair<>(Turn.X, 4));
-        assertEquals(true, board.spaceIsEmpty(new Pair<>(Turn.X, 5)));
-    }
-
-    @Test
     public void shouldDrawRowsIndependentlyWhenGenerateColumnsIsCalledAfterUpdateBoardIsCalledTwiceInDifferentRows() {
         board.updateBoard(new Pair<>(Turn.X, 5));
         board.updateBoard(new Pair<>(Turn.X, 1));
@@ -59,13 +53,6 @@ public class BoardTest {
                         "  | X |  \n" +
                         "---------\n" +
                         "  |   |  \n");
-    }
-
-    @Test
-    public void shouldPrintLocationAlreadyTakenWhenCheckingEmptyOnOccupiedSpace() {
-        board.updateBoard(new Pair<>(Turn.X, 4));
-        assertEquals(false, board.spaceIsEmpty(new Pair<>(Turn.O, 4)));
-        verify(printstream).println("Location already taken: enter an unoccupied space.");
     }
 
     @Test
@@ -86,5 +73,37 @@ public class BoardTest {
         board.updateBoard(new Pair<>(Turn.X, 8));
         board.updateBoard(new Pair<>(Turn.X, 9));
         assertEquals(true, board.boardIsFull());
+    }
+
+    @Test
+     public void shouldReturnTrueWhenThereIsARowWinCondition() {
+        board.updateBoard(new Pair<>(Turn.X, 1));
+        board.updateBoard(new Pair<>(Turn.X, 2));
+        board.updateBoard(new Pair<>(Turn.X, 3));
+        assertEquals(true, board.isThereAWinner());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenThereIsADiagonalWinCondition() {
+        board.updateBoard(new Pair<>(Turn.X, 1));
+        board.updateBoard(new Pair<>(Turn.X, 5));
+        board.updateBoard(new Pair<>(Turn.X, 9));
+        assertEquals(true, board.isThereAWinner());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenThereIsAColumnWinCondition() {
+        board.updateBoard(new Pair<>(Turn.X, 1));
+        board.updateBoard(new Pair<>(Turn.X, 4));
+        board.updateBoard(new Pair<>(Turn.X, 7));
+        assertEquals(true, board.isThereAWinner());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenThereIsAWinConditionOnTheBoard() {
+        board.updateBoard(new Pair<>(Turn.X, 1));
+        board.updateBoard(new Pair<>(Turn.X, 6));
+        board.updateBoard(new Pair<>(Turn.X, 8));
+        assertEquals(false, board.isThereAWinner());
     }
 }

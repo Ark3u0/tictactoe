@@ -38,14 +38,6 @@ public class Board {
         printstream.print(output);
     }
 
-    public boolean spaceIsEmpty(Pair<Turn, Integer> space) {
-        if (boardSpaces[space.getValue() - 1] == Turn.EMPTY) {
-            return true;
-        }
-        printstream.println("Location already taken: enter an unoccupied space.");
-        return false;
-    }
-
     public boolean boardIsFull() {
         return turnCount == 9;
     }

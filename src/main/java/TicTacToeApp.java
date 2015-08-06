@@ -1,7 +1,6 @@
 import javafx.util.Pair;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TicTacToeApp {
@@ -31,16 +30,17 @@ public class TicTacToeApp {
 
         while (gameInPlay) {
             Pair<Turn, Integer> playerMove = players.get(playerTurn).makeAMove();
-            while (!board.spaceIsEmpty(playerMove)) {
-                playerMove = players.get(playerTurn).makeAMove();
-            }
             board.updateBoard(playerMove);
             board.generateBoard();
-            switchTurn();
+            if (board.isThereAWinner()) {
+                gameInPlay = false;
+                printstream.println("Player " + (playerTurn + 1) + " Wins!");
+            }
             if (board.boardIsFull()) {
                 gameInPlay = false;
                 printstream.println("Game is a draw.");
             }
+            switchTurn();
         }
 
     }

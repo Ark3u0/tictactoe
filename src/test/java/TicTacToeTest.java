@@ -29,7 +29,6 @@ public class TicTacToeTest {
     @Test
     public void shouldGenerateBoardWhenApplicationStarts() {
         when(board.boardIsFull()).thenReturn(true);
-        when(board.spaceIsEmpty(Matchers.<Pair<Turn, Integer>>anyObject())).thenReturn(true);
         app.start();
         verify(board, atLeastOnce()).generateBoard();
     }
@@ -37,7 +36,6 @@ public class TicTacToeTest {
     @Test
     public void shouldAskForPlayerToMakeAMoveWhenGameStarts() {
         when(board.boardIsFull()).thenReturn(true);
-        when(board.spaceIsEmpty(Matchers.<Pair<Turn, Integer>>anyObject())).thenReturn(true);
         app.start();
         verify(player1, atLeastOnce()).makeAMove();
     }
@@ -45,7 +43,6 @@ public class TicTacToeTest {
     @Test
     public void shouldSwitchPlayerTurnsAfterEachMove() {
         when(board.boardIsFull()).thenReturn(false).thenReturn(true);
-        when(board.spaceIsEmpty(Matchers.<Pair<Turn, Integer>>anyObject())).thenReturn(true).thenReturn(true);
         app.start();
         verify(player1, atLeastOnce()).makeAMove();
         verify(player2, atLeastOnce()).makeAMove();
@@ -54,8 +51,15 @@ public class TicTacToeTest {
     @Test
     public void shouldPrintGameIsDrawWhenBoardIsFull() {
         when(board.boardIsFull()).thenReturn(true);
-        when(board.spaceIsEmpty(Matchers.<Pair<Turn, Integer>>anyObject())).thenReturn(true);
         app.start();
         verify(printstream).println("Game is a draw.");
+    }
+
+    @Test
+    public void shouldPrintPlayer1WinsWhenThereIsAWinState() {
+        when(board.boardIsFull()).thenReturn(true);
+        when(board.isThereAWinner()).thenReturn(true);
+        app.start();
+        verify(printstream).println("Player 1 Wins!");
     }
 }

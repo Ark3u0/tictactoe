@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -5,7 +6,7 @@ import java.io.PrintStream;
 
 import static org.mockito.Mockito.*;
 
-public class PlayerTest {
+public class HumanPlayerTest {
     private Player player;
     private Input input;
     private PrintStream printstream;
@@ -14,7 +15,7 @@ public class PlayerTest {
     public void setup() {
         input = mock(Input.class);
         printstream = mock(PrintStream.class);
-        player = new Player(printstream, input, Turn.X);
+        player = new HumanPlayer(printstream, input, Turn.X);
     }
 
     @Test
@@ -31,6 +32,14 @@ public class PlayerTest {
         player.makeAMove();
         verify(printstream).println("Invalid Input: enter a number 1-9.");
         verify(input, times(2)).getInput();
+    }
+
+    @Test
+    public void shouldPrintLocationAlreadyTakenWhenCheckingEmptyOnOccupiedSpace() {
+        when(input.getInput()).thenReturn("1").thenReturn("1").thenReturn("2");
+        player.makeAMove();
+        player.makeAMove();
+        verify(printstream).println("Location already taken: enter an unoccupied space.");
     }
 
     @Test

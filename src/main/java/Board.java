@@ -54,4 +54,42 @@ public class Board {
         boardSpaces[move.getValue() - 1] = move.getKey();
         turnCount++;
     }
+
+    private boolean checkForWinnerOnDiagonals() {
+        if (boardSpaces[0] == boardSpaces[4] && boardSpaces[4] == boardSpaces[8] && boardSpaces[0] != Turn.EMPTY) {
+            return true;
+        } else if (boardSpaces[2] == boardSpaces[4] && boardSpaces[4] == boardSpaces[6] && boardSpaces[2] != Turn.EMPTY) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkForWinnerOnRows() {
+        if (boardSpaces[0] == boardSpaces[1] && boardSpaces[1] == boardSpaces[2] && boardSpaces[0] != Turn.EMPTY) {
+            return true;
+        } else if (boardSpaces[3] == boardSpaces[4] && boardSpaces[4] == boardSpaces[5] && boardSpaces[3] != Turn.EMPTY) {
+            return true;
+        } else if (boardSpaces[6] == boardSpaces[7] && boardSpaces[7] == boardSpaces[8] && boardSpaces[6] != Turn.EMPTY) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkForWinnerOnColumns() {
+        if (boardSpaces[1] == boardSpaces[4] && boardSpaces[4] == boardSpaces[7] && boardSpaces[1] != Turn.EMPTY) {
+            return true;
+        } else if (boardSpaces[0] == boardSpaces[3] && boardSpaces[3] == boardSpaces[6] && boardSpaces[0] != Turn.EMPTY) {
+            return true;
+        } else if (boardSpaces[2] == boardSpaces[5] && boardSpaces[5] == boardSpaces[8] && boardSpaces[2] != Turn.EMPTY) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean isThereAWinner() {
+        return checkForWinnerOnDiagonals() || checkForWinnerOnRows() || checkForWinnerOnColumns();
+    }
+
+
 }

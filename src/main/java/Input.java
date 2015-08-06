@@ -1,9 +1,13 @@
 import java.util.Scanner;
 
 public class Input {
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
 
-    public static String getInput() {
+    public Input() {
+        scanner = new Scanner(System.in);
+    }
+
+    public String getInput() {
         return scanner.nextLine();
     }
 

@@ -27,7 +27,6 @@ public class TicTacToeApp {
 
     public void start() {
         board.generateBoard();
-
         while (gameInPlay) {
             Pair<Turn, Integer> playerMove = players.get(playerTurn).makeAMove();
             board.updateBoard(playerMove);

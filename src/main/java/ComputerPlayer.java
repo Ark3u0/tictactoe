@@ -1,17 +1,16 @@
 import javafx.util.Pair;
 
+import java.util.List;
+
 public class ComputerPlayer extends Player {
     public ComputerPlayer(Turn turn) {
         super.turn = turn;
     }
 
     @Override
-    public Pair<Turn, Integer> makeAMove() {
-        for (int move = 1; move < 10; move++) {
-            if (!playerMoveHistory.containsValue(move)) {
-                playerMoveHistory.put(turn, move);
-                return new Pair<>(turn, move);
-            }
+    public Pair<Turn, Integer> makeAMove(List<Integer> availableSpaces) {
+        for (Integer possibleMoves : availableSpaces) {
+            return new Pair<>(turn, possibleMoves);
         }
         return null;
     }

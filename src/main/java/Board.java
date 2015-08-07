@@ -1,6 +1,8 @@
 import javafx.util.Pair;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
     private PrintStream printstream;
@@ -47,6 +49,7 @@ public class Board {
         turnCount++;
     }
 
+
     private boolean checkForWinnerOnDiagonals() {
         if (boardSpaces[0] == boardSpaces[4] && boardSpaces[4] == boardSpaces[8] && boardSpaces[0] != Turn.EMPTY) {
             return true;
@@ -76,7 +79,16 @@ public class Board {
             return true;
         }
         return false;
+    }
 
+    public List<Integer> availableSpaces() {
+        List<Integer> availableSpaces = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            if (boardSpaces[i] == Turn.EMPTY) {
+                availableSpaces.add(i + 1);
+            }
+        }
+        return availableSpaces;
     }
 
     public boolean isThereAWinner() {

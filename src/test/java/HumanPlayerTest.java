@@ -3,6 +3,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -16,6 +18,8 @@ public class HumanPlayerTest {
         input = mock(Input.class);
         printstream = mock(PrintStream.class);
         player = new HumanPlayer(printstream, input, Turn.X);
+        List<Integer> availableSpaces = new ArrayList<>();
+        availableSpaces.add()
     }
 
     @Test

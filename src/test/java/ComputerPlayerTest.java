@@ -17,4 +17,5 @@ public class ComputerPlayerTest {
         int spaceNumber = cpu.makeAMove().getValue();
         assertEquals(2, spaceNumber);
     }
+
 }

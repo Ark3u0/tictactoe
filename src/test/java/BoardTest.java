@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -97,6 +98,20 @@ public class BoardTest {
         board.updateBoard(new Pair<>(Turn.X, 4));
         board.updateBoard(new Pair<>(Turn.X, 7));
         assertEquals(true, board.isThereAWinner());
+    }
+
+    @Test
+    public void shouldReturnSpacesFiveThroughNineWhenCheckingForAvailableSpaces() {
+        board.updateBoard(new Pair<>(Turn.X, 1));
+        board.updateBoard(new Pair<>(Turn.X, 2));
+        board.updateBoard(new Pair<>(Turn.X, 3));
+        board.updateBoard(new Pair<>(Turn.X, 4));
+        List<Integer> availableSpaces = board.availableSpaces();
+        assert(availableSpaces.contains(5));
+        assert(availableSpaces.contains(6));
+        assert(availableSpaces.contains(7));
+        assert(availableSpaces.contains(8));
+        assert(availableSpaces.contains(9));
     }
 
     @Test

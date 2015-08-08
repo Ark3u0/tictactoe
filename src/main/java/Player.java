@@ -1,31 +1,39 @@
 import com.sun.javaws.exceptions.InvalidArgumentException;
-import com.sun.tools.corba.se.idl.InvalidArgument;
 import javafx.util.Pair;
 
 import java.io.PrintStream;
 
 public class Player {
     private Input input;
-    private PrintStream printstream;
-    private Turn turn;
+    private PrintStream printStream;
+    private Symbol symbol;
+    private Board board;
 
-    public Player(PrintStream printstream, Input input, Turn turn) {
+    public Player(PrintStream printStream, Input input, Symbol symbol, Board board) {
         this.input = input;
-        this.printstream = printstream;
-        this.turn = turn;
+        this.printStream = printStream;
+        this.symbol = symbol;
+        this.board = board;
     }
 
-    public Pair<Turn, Integer> makeAMove() {
+    public void makeAMove() {
+        int enteredLocation;
         while (true) {
+            printStream.println("Enter a location between 1 and 9: ");
             try {
-                int providedNumber = Integer.parseInt(input.getInput());
-                if (providedNumber < 1 || providedNumber > 9) {
-                    throw new InvalidArgumentException(null);
+                enteredLocation = Integer.parseInt(input.scan());
+                if (enteredLocation < 1 || enteredLocation > 9) {
+                    continue;
                 }
-                return new Pair<>(turn, providedNumber);
-            } catch (NumberFormatException | InvalidArgumentException e) {
-                printstream.println("Invalid Input: enter a number 1-9.");
+                if (!board.locationIsAvailable(enteredLocation)) {
+                    printStream.println("Location already taken.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                continue;
             }
         }
+        board.update(symbol.toString(), enteredLocation);
     }
 }

@@ -7,8 +7,7 @@ public class Input {
         scanner = new Scanner(System.in);
     }
 
-    public String getInput() {
+    public String scan() {
         return scanner.nextLine();
     }
-
 }

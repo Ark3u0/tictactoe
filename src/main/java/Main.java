@@ -1,13 +1,12 @@
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
+import static java.util.Arrays.asList;
 
 public class Main {
    public static void main(String[] args) {
-       List<Player> players = new ArrayList<>();
+       Board board = new Board(System.out, asList(" ", " ", " ", " ", " ", " ", " ", " ", " "));
        Input input = new Input();
-       players.add(new Player(System.out, input, Turn.O));
-       players.add(new Player(System.out, input, Turn.X));
-       new TicTacToeApp(new Board(System.out), players, System.out).start();
+       new Game(board,
+               asList(new Player(System.out, input, Symbol.O, board),
+               new Player(System.out, input, Symbol.X, board)),
+               System.out).start();
    }
 }

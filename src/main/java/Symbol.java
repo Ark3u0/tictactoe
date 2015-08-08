@@ -1,11 +1,11 @@
 
-public enum Turn {
-    X("X"), O("O"), EMPTY(" ");
+public enum Symbol {
+    X("X"), O("O");
 
     private String printValue;
 
 
-    Turn(String printValue) {
+    Symbol(String printValue) {
         this.printValue = printValue;
     }
 

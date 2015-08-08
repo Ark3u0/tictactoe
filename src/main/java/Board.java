@@ -1,4 +1,3 @@
-import javafx.util.Pair;
 
 import java.io.PrintStream;
 import java.util.List;

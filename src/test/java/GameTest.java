@@ -1,10 +1,7 @@
-import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;

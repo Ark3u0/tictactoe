@@ -1,7 +1,10 @@
+import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -85,6 +88,4 @@ public class PlayerTest {
         player.makeAMove();
         verify(input, times(2)).scan();
     }
-
-
 }

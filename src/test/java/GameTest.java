@@ -23,44 +23,61 @@ public class GameTest {
     }
 
     @Test
-    public void shouldDrawBoardWhenGameStarts() {
-        when(board.isFull()).thenReturn(true);
-        game.start();
+    public void shouldDrawBoardWhenRunningATurn() {
+        game.runTurn();
         verify(board).generate();
     }
 
     @Test
-    public void shouldPromptPlayerToMakeAMoveWhenGameStarts() {
-        when(board.isFull()).thenReturn(true);
-        game.start();
+    public void shouldPromptPlayerToMakeAMoveWhenRunningATurn() {
+        game.runTurn();
         verify(player1).makeAMove();
     }
 
     @Test
-    public void shouldPromptSecondPlayerToMakeAMoveWhenGameStarts() {
-        when(board.isFull()).thenReturn(false).thenReturn(true);
-        game.start();
+    public void shouldSecondPlayerShouldMakeAMoveAfterFirstPlayersMove() {
+        game.runTurn();
+        game.runTurn();
         verify(player2).makeAMove();
     }
 
     @Test
-    public void shouldRequireBothPlayerOneToMakeMultipleMovesWhenTheGameStarts() {
-        when(board.isFull()).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(true);
-        game.start();
-        verify(player1, atLeast(3)).makeAMove();
-    }
-
-    @Test
-    public void shouldRequireBothPlayerTwoToMakeMultipleMovesWhenTheGameStarts() {
-        when(board.isFull()).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(true);
-        game.start();
-        verify(player2, atLeast(3)).makeAMove();
+    public void shouldCheckIfBoardIsFullWhenRunningATurn() {
+        game.runTurn();
+        verify(board).isFull();
     }
 
     @Test
     public void shouldPrintGameIsDrawWhenBoardIsFull() {
         when(board.isFull()).thenReturn(true);
-        game.start();
+        game.runTurn();
         verify(printStream).println("Game is a draw.");
+    }
+
+    @Test
+    public void shouldNotPrintGameIsDrawWhenBoardIsNotFull() {
+        when(board.isFull()).thenReturn(false);
+        game.runTurn();
+        verify(printStream, never()).println("Game is a draw.");
+    }
+
+    @Test
+    public void shouldCheckIfGameHasWinnerWhenRunningATurn() {
+        game.runTurn();
+        verify(board).hasWinner();
+    }
+
+    @Test
+    public void shouldPrintPlayerOneWinsWhenPlayerOneWins() {
+        when(board.hasWinner()).thenReturn(true);
+        game.runTurn();
+        verify(printStream).println("Player 1 Wins!");
+    }
+
+    @Test
+    public void shouldNotPrintPlayerOneWinsWhenPlayerOneHasNotWon() {
+        when(board.hasWinner()).thenReturn(false);
+        game.runTurn();
+        verify(printStream, never()).println("Player 1 Wins!");
     }
 }

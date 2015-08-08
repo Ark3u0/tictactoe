@@ -7,12 +7,14 @@ public class Game {
     private List<Player> players;
     private PrintStream printStream;
     private int currentPlayer;
+    private boolean gameInPlay;
 
     public Game(Board board, List<Player> players, PrintStream printstream) {
         this.board = board;
         this.players = players;
         this.printStream = printstream;
         this.currentPlayer = 0;
+        this.gameInPlay = true;
     }
 
     private void switchPlayer() {
@@ -29,16 +31,26 @@ public class Game {
     }
 
     public void start() {
-        boolean gameInPlay = true;
         while (gameInPlay) {
-            board.generate();
-            players.get(currentPlayer).makeAMove();
-            switchPlayer();
-            if (board.isFull()) {
-                board.generate();
-                printStream.println("Game is a draw.");
-                gameInPlay = false;
-            }
+            runTurn();
         }
+    }
+
+    public void runTurn() {
+        board.generate();
+        players.get(currentPlayer).makeAMove();
+        if (board.hasWinner()) {
+            board.generate();
+            printStream.println("Player " + (currentPlayer + 1) + " Wins!");
+            gameInPlay = false;
+            return;
+        }
+        if (board.isFull()) {
+            board.generate();
+            printStream.println("Game is a draw.");
+            gameInPlay = false;
+            return;
+        }
+        switchPlayer();
     }
 }

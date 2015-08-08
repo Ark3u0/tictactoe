@@ -41,7 +41,7 @@ public class Board {
         locations.set(location - 1, symbol);
     }
 
-    public void hasWinner() {
-
+    public boolean hasWinner() {
+        return false;
     }
 }

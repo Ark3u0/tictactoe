@@ -41,7 +41,27 @@ public class Board {
         locations.set(location - 1, symbol);
     }
 
+    public boolean checkDiagonalForWinner() {
+        boolean diagonal159 = (locations.get(0) == locations.get(4) && locations.get(4) == locations.get(8) && locations.get(0) != " ");
+        boolean diagonal357 = (locations.get(2) == locations.get(4) && locations.get(4) == locations.get(6) && locations.get(2) != " ");
+        return diagonal159 || diagonal357;
+    }
+
+    public boolean checkRowForWinner() {
+        boolean row123 = (locations.get(0) == locations.get(1) && locations.get(1) == locations.get(2) && locations.get(0) != " ");
+        boolean row456 = (locations.get(3) == locations.get(4) && locations.get(4) == locations.get(5) && locations.get(3) != " ");
+        boolean row789 = (locations.get(6) == locations.get(7) && locations.get(7) == locations.get(8) && locations.get(6) != " ");
+        return row123 || row456 || row789;
+    }
+
+    public boolean checkColumnForWinner() {
+        boolean column147 = (locations.get(0) == locations.get(3) && locations.get(3) == locations.get(6) && locations.get(0) != " ");
+        boolean column258 = (locations.get(1) == locations.get(4) && locations.get(4) == locations.get(7) && locations.get(1) != " ");
+        boolean column369 = (locations.get(2) == locations.get(5) && locations.get(5) == locations.get(8) && locations.get(2) != " ");
+        return column147 || column258 || column369;
+    }
+
     public boolean hasWinner() {
-        return false;
+        return checkDiagonalForWinner() || checkRowForWinner() || checkColumnForWinner();
     }
 }

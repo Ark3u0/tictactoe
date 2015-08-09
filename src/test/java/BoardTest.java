@@ -75,4 +75,32 @@ public class BoardTest {
     public void shouldReturnTrueWhenBoardIsFull() {
         assertTrue(numberedBoard.isFull());
     }
+
+    @Test
+    public void shouldReturnTrueWhenBoardHasWinnerOnDiagonal() {
+        List<String> diagonal = asList(".", " ", " ", " ", ".", " ", " ", " ", ".");
+        Board diagonalBoard = new Board(printStream, diagonal);
+        assertTrue(diagonalBoard.hasWinner());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenBoardHasWinnerOnRow() {
+        List<String> row = asList("", " ", "$", ".", ".", ".", " ", "$", " ");
+        Board rowBoard = new Board(printStream, row);
+        assertTrue(rowBoard.hasWinner());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenBoardHasWinnerOnColumn() {
+        List<String> column = asList("$", " ", "$", ".", ".", ".", "$", " ", " ");
+        Board columnBoard = new Board(printStream, column);
+        assertTrue(columnBoard.hasWinner());
+    }
+
+    @Test
+    public void shouldNotReturnTrueWhenBoardDoesNotHaveWinner() {
+        List<String> noWin = asList(".", "$", ".", " ", "$", ".", " ", ".", " ");
+        Board noWinBoard = new Board(printStream, noWin);
+        assertFalse(noWinBoard.hasWinner());
+    }
 }
